@@ -4,7 +4,8 @@ public class Humain {
 	private String nom;
 	private String boissonFav;
 	private int nbArgent;
-	private
+	private int nbConnaissance = 0;
+	private Humain[] connaissance = new Humain[30];
 
 	public Humain(String nom, String boissonFavorite, int nbArgent) {
 		this.nom = nom;
@@ -30,11 +31,11 @@ public class Humain {
 
 	public void acheter(String bien, int prix) {
 		if (nbArgent > prix) {
-			parler("J ai " + nbArgent + " sous en poche. Je vais pouvoir m offrir " + bien +" à " + prix + " sous.");
+			parler("J ai " + nbArgent + " sous en poche. Je vais pouvoir m offrir " + bien + " à " + prix + " sous.");
 			perdreArgent(prix);
 			if (bien != null && bien.equals("une boisson")) {
 				boire();
-				}
+			}
 		} else {
 			parler("J n'ai plus que " + nbArgent + " sous en poche. Je ne  peux  meme pas m'offrir " + bien + " à "
 					+ prix + " sous.");
@@ -42,12 +43,14 @@ public class Humain {
 	}
 
 	public int gagnerArgent(int gain) {
-		return nbArgent += gain;
+		nbArgent += gain;
+		return nbArgent;
 	}
 
 	public int perdreArgent(int perte) {
 		if ((nbArgent - perte) > 0) {
-			return nbArgent -= perte;
+			nbArgent -= perte;
+			return nbArgent;
 		}
 		return 0;
 	}
@@ -55,20 +58,25 @@ public class Humain {
 	public void direBonjour() {
 		parler("Bonjour ! je m'appelle " + nom + " et j aime boire du " + boissonFav);
 	}
-	
+
 	public void repondre(Humain homme1) {
 		direBonjour();
-		memoriser(homme1);
+		if (nbConnaissance < 30) {
+			memoriser(homme1);
+		}
 	}
-	
+
 	public void memoriser(Humain homme1) {
-		
+		connaissance[nbConnaissance] = homme1;
+		nbConnaissance++;
 	}
-	
+
 	public void voidfaireConnaissanceAvec(Humain autreHumain) {
 		direBonjour();
 		repondre(this);
-		memoriser(autreHumain);
+		if (nbConnaissance < 30) {
+			memoriser(autreHumain);
+		}
 	}
 
 	public static void main(String[] argv) {

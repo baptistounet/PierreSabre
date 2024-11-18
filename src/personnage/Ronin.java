@@ -9,23 +9,23 @@ public class Ronin extends Humain {
 	}
 
 	public void donner(Commercant beneficiaire) {
-		int argt = getArgent();
-		int adonner = (argt * 10) / 100;
+		int argent = getArgent();
+		int adonner = (argent * 10) / 100;
 		parler(beneficiaire.getNom() + " prend ces " + adonner + " sous.");
 		beneficiaire.recevoir(adonner);
 	}
 
 	public void provoquer(Yakuza adversaire) {
-		int force = this.attributHonneur * 2;
-		int argt = getArgent();
+		int force = attributHonneur * 2;
+		int argent = getArgent();
 		if (force >= adversaire.getPointReputation()) {
 			parler("Je t'ai retrouvé vermine, tu vas payer pour ce que tu as fait à ce pauvre" + " marchand!");
 			parler("Je t’ai eu petit yakusa!");
 			gagnerArgent(adversaire.perdre());
 		} else {
 			parler("J'ai perdu contre ce yakuza, mon honneur et ma bourse ont en pris un coup.");
-			adversaire.gagner(argt);
-			perdreArgent(argt);
+			adversaire.gagner(argent);
+			perdreArgent(argent);
 		}
 	}
 }
