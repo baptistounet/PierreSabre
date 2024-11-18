@@ -4,7 +4,7 @@ public class Humain {
 	private String nom;
 	private String boissonFav;
 	private int nbArgent;
-	private int nbConnaissance = 0;
+	protected int nbConnaissance = 0;
 	private Humain[] connaissance = new Humain[30];
 
 	public Humain(String nom, String boissonFavorite, int nbArgent) {
@@ -71,14 +71,24 @@ public class Humain {
 		nbConnaissance++;
 	}
 
-	public void voidfaireConnaissanceAvec(Humain autreHumain) {
+	public void faireConnaissanceAvec(Humain autreHumain) {
 		direBonjour();
-		repondre(this);
+		autreHumain.repondre(this);
 		if (nbConnaissance < 30) {
 			memoriser(autreHumain);
 		}
 	}
 
+	public void listerConnaissance() {
+		StringBuilder bld = new StringBuilder();
+		bld.append("Je connais beaucoup de monde dont :");
+		for (int i = 0; i < nbConnaissance-1; i++) {
+			bld.append(connaissance[i].getNom() + ", ");
+		}
+		bld.append(connaissance[nbConnaissance-1].getNom());
+		parler(bld.toString());
+	}
+	
 	public static void main(String[] argv) {
 		Humain paul = new Humain("Paul", "Cognac", 300);
 		paul.direBonjour();
